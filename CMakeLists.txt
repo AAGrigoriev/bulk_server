@@ -22,56 +22,25 @@ set(NETWORK
 
 set(UTILS
     utils/command_parser.cpp
-    utils/command_parser.hpp)
+    utils/command_parser.hpp
+    utils/thread_pool.cpp
+    utils/thread_pool.hpp)
 
 set(LOGIC
     logic/controller.cpp
     logic/controller.hpp
     logic/global_context.cpp
-    logic/global_context.hpp)
+    logic/global_context.hpp
+    logic/post_processor.cpp
+    logic/post_processor.hpp
+    logic/command.cpp
+    logic/command.hpp
+    logic/command_buffer.cpp
+    logic/command_buffer.hpp)
 
 include_directories(logic)
 include_directories(network)
 include_directories(utils)
-
-# set(INTERFACES
-#     src/include/interfaces/command.h
-#     src/include/interfaces/processor.h
-#     src/include/interfaces/reader.h
-#     src/include/interfaces/writer.h)
-
-# set(HEADERS ${INTERFACES}
-#     src/include/implementation/dummy_command.h
-#     src/include/implementation/dummy_command_processor.h
-#     src/include/implementation/stream_reader.h
-#     src/include/implementation/console_writer.h
-#     src/include/implementation/file_writer.h
-#     src/include/implementation/common_command_buffer.h
-#     src/include/implementation/global_state.h
-
-#     src/include/network/server.h
-#     src/include/network/session.h
-#     src/include/network/raw_data_handler.h
-
-#     src/include/utils/thread_pool.h
-#     src/include/utils/utils.h)
-
-# set(SOURCES
-#     src/logic/implementation/command.cpp
-#     src/logic/implementation/dummy_command.cpp
-#     src/logic/implementation/dummy_command_processor.cpp
-#     src/logic/implementation/stream_reader.cpp
-#     src/logic/implementation/console_writer.cpp
-#     src/logic/implementation/file_writer.cpp
-#     src/logic/implementation/common_command_buffer.cpp
-#     src/logic/implementation/global_state.cpp
-
-#     src/logic/network/server.cpp
-#     src/logic/network/session.cpp
-#     src/logic/network/raw_data_handler.cpp
-
-#     src/utils/thread_pool.cpp
-#     src/utils/utils.cpp)
 
 add_executable(bulk_server main.cpp ${NETWORK} ${UTILS} ${LOGIC})
 

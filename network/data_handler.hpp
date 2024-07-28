@@ -25,12 +25,13 @@ template <std::size_t SIZE>
 void data_handler::recieve(std::array<char, SIZE>& array,
                            std::size_t real_length) {
   if (auto it = std::find(std::rbegin(array), std::rend(array), '\n');
-      it == array.rend()) {
-    buffer_.append(array.begin(), array.end());
-    return;
-  } else {
+      it != array.rend()) {
     std::istringstream stream(buffer_ +
                               std::string(array.begin(), array.begin() + it));
+    buffer_ = std::string(array.begin() + it + 1, array.end());
+
+  } else {
+    buffer_.append(array.begin(), array.end());
   }
 }
 

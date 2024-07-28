@@ -23,7 +23,7 @@ class session : std::enable_shared_from_this<session> {
   static constexpr std::size_t BUFFER_SIZE = 1024;
   std::size_t bulk_size_;
   asio::ip::tcp::socket socket_;
-  std::array<std::byte, BUFFER_SIZE> buffer_;
+  std::array<char, BUFFER_SIZE> buffer_;
 };
 
 }  // namespace network
