@@ -24,6 +24,16 @@ set(UTILS
     utils/command_parser.cpp
     utils/command_parser.hpp)
 
+set(LOGIC
+    logic/controller.cpp
+    logic/controller.hpp
+    logic/global_context.cpp
+    logic/global_context.hpp)
+
+include_directories(logic)
+include_directories(network)
+include_directories(utils)
+
 # set(INTERFACES
 #     src/include/interfaces/command.h
 #     src/include/interfaces/processor.h
@@ -63,7 +73,7 @@ set(UTILS
 #     src/utils/thread_pool.cpp
 #     src/utils/utils.cpp)
 
-add_executable(bulk_server main.cpp ${NETWORK} ${UTILS})
+add_executable(bulk_server main.cpp ${NETWORK} ${UTILS} ${LOGIC})
 
 # set_target_properties(bulk_server PROPERTIES
 #     CXX_STANDARD 17
