@@ -36,7 +36,12 @@ set(LOGIC
     logic/command.cpp
     logic/command.hpp
     logic/command_buffer.cpp
-    logic/command_buffer.hpp)
+    logic/command_buffer.hpp
+    logic/i_writer.hpp
+    logic/file_writer.cpp
+    logic/file_writer.hpp
+    logic/console_writer.cpp
+    logic/console_writer.hpp)
 
 include_directories(logic)
 include_directories(network)
