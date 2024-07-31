@@ -38,6 +38,7 @@ set(LOGIC
     logic/command_buffer.cpp
     logic/command_buffer.hpp
     logic/i_writer.hpp
+    logic/i_writer.cpp
     logic/file_writer.cpp
     logic/file_writer.hpp
     logic/console_writer.cpp
