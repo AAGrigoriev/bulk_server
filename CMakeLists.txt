@@ -31,8 +31,8 @@ set(LOGIC
     logic/controller.hpp
     logic/global_context.cpp
     logic/global_context.hpp
-    logic/post_processor.cpp
-    logic/post_processor.hpp
+    logic/post_controller.cpp
+    logic/post_controller.hpp
     logic/command.cpp
     logic/command.hpp
     logic/command_buffer.cpp

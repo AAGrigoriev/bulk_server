@@ -6,6 +6,8 @@
 
 #include <boost/asio.hpp>
 
+#include "data_handler.hpp"
+
 namespace network {
 
 namespace asio = boost::asio;
@@ -21,9 +23,9 @@ class session : std::enable_shared_from_this<session> {
 
  private:
   static constexpr std::size_t BUFFER_SIZE = 1024;
-  std::size_t bulk_size_;
   asio::ip::tcp::socket socket_;
   std::array<char, BUFFER_SIZE> buffer_;
+  data_handler data_handler_;
 };
 
 }  // namespace network

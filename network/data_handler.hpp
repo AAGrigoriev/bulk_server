@@ -29,7 +29,7 @@ void data_handler::recieve(std::array<char, SIZE>& array,
     std::istringstream stream(buffer_ +
                               std::string(array.begin(), array.begin() + it));
     buffer_ = std::string(array.begin() + it + 1, array.end());
-
+    controller_.process_command(stream);
   } else {
     buffer_.append(array.begin(), array.end());
   }

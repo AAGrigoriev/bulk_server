@@ -1,13 +1,15 @@
 #include "controller.hpp"
 
 #include <cassert>
-#include <memory>
 #include <string>
+
+#include "global_context.hpp"
+#include "thread_pool.hpp"
 
 namespace logic {
 
 controller::controller(global_context& context)
-    : context_(context), depth_{0, context_.bulk_size()} {}
+    : context_(context), depth_{0, context_.get_bulk_size()} {}
 
 void controller::process_command(std::istream& stream) {
   std::string line;
@@ -59,7 +61,13 @@ void controller::add_command(std::string&& command) {
 void controller::create_command() {
   assert(command_buffer_.current_size());
 
-  std::shared_ptr<std::vector<std::string>> commands;
+  auto commands = command_buffer_.create_command();
+
+  auto job = [commands = std::move(commands)]() {
+    global_context::get_instance().get_post_controller().process_data(commands);
+  };
+
+  utility::thread_pool::get_instance().enqueue(std::move(job));
 }
 
 }  // namespace logic

@@ -2,6 +2,7 @@
 
 #include <mutex>
 #include <string>
+#include <string_view>
 
 #include "i_writer.hpp"
 
@@ -9,11 +10,11 @@ namespace logic {
 
 class file_writer : public i_writer {
  public:
-  file_writer(std::string prefix,
-              std::string suffix,
+  file_writer(std::string_view prefix,
+              std::string_view suffix,
               std::mutex& open_file_mutex);
 
-  virtual void write(const std::stringstream& str) const = 0;
+  void write(const command& command) const override;
 
  private:
   void open_file(const std::string& base_filename, std::ofstream& file) const;

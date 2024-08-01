@@ -5,12 +5,10 @@
 
 namespace logic {
 
-file_writer::file_writer(std::string prefix,
-                         std::string suffix,
+file_writer::file_writer(std::string_view prefix,
+                         std::string_view suffix,
                          std::mutex& open_file_mutex)
-    : file_prefix_(std::move(prefix)),
-      file_suffix_(std::move(suffix)),
-      mutex_(open_file_mutex) {}
+    : file_prefix_(prefix), file_suffix_(suffix), mutex_(open_file_mutex) {}
 
 void file_writer::open_file_non_blocking(const std::string& base_filename,
                                          std::ofstream& file) const {

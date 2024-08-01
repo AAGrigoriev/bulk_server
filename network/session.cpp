@@ -3,7 +3,7 @@
 namespace network {
 
 session::session(std::size_t bulk_size, asio::ip::tcp::socket&& socket)
-    : bulk_size_(bulk_size), socket_(std::move(socket)) {}
+    : socket_(std::move(socket)), data_handler_(bulk_size) {}
 
 void session::do_read() {
   auto self(shared_from_this());
@@ -11,7 +11,7 @@ void session::do_read() {
       boost::asio::buffer(buffer_, BUFFER_SIZE),
       [this, self](boost::system::error_code ec, std::size_t length) {
         if (!ec) {
-          // some code
+          data_handler_.recieve(buffer_, length);
           do_read();
         }
       });
