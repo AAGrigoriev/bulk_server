@@ -53,7 +53,7 @@ void thread_pool::enqueue(F&& f, Args&&... args) {
     if (stop)
       throw std::runtime_error("enqueue on stopped ThreadPool");
 
-    tasks.emplace([task]() { (*task)(); });
+    tasks.emplace(std::move(task));
   }
   condition.notify_one();
 }

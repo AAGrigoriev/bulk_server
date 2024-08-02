@@ -49,6 +49,7 @@ include_directories(network)
 include_directories(utils)
 
 add_executable(bulk_server main.cpp ${NETWORK} ${UTILS} ${LOGIC})
+target_link_libraries(bulk_server ${Boost_LIBRARIES})
 
 # set_target_properties(bulk_server PROPERTIES
 #     CXX_STANDARD 17

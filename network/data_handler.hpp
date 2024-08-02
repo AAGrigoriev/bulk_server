@@ -26,9 +26,9 @@ void data_handler::recieve(std::array<char, SIZE>& array,
                            std::size_t real_length) {
   if (auto it = std::find(std::rbegin(array), std::rend(array), '\n');
       it != array.rend()) {
-    std::istringstream stream(buffer_ +
-                              std::string(array.begin(), array.begin() + it));
-    buffer_ = std::string(array.begin() + it + 1, array.end());
+    std::istringstream stream(buffer_ + std::string(array.begin(), it.base()));
+
+    buffer_ = std::string(it.base() + 1, array.end());
     controller_.process_command(stream);
   } else {
     buffer_.append(array.begin(), array.end());

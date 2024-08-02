@@ -63,8 +63,8 @@ void controller::create_command() {
 
   auto commands = command_buffer_.create_command();
 
-  auto job = [commands = std::move(commands)]() {
-    global_context::get_instance().get_post_controller().process_data(commands);
+  auto job = [com = std::move(commands)]() {
+    global_context::get_instance().get_post_controller().process_data(com);
   };
 
   utility::thread_pool::get_instance().enqueue(std::move(job));
