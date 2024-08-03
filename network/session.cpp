@@ -5,6 +5,10 @@ namespace network {
 session::session(std::size_t bulk_size, asio::ip::tcp::socket&& socket)
     : socket_(std::move(socket)), data_handler_(bulk_size) {}
 
+void session::start() {
+  do_read();
+}
+
 void session::do_read() {
   auto self(shared_from_this());
   socket_.async_read_some(

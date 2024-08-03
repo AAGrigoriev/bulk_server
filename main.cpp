@@ -7,23 +7,29 @@
 
 using boost::asio::ip::tcp;
 
-int main(int argc, char* argv[]) try {
+int main(int argc, char* argv[]) {
   command_parser::parser_output context;
   try {
     context = command_parser::parse(argc, argv);
-  } catch (...) {
-    return 0;
+
+    boost::asio::io_context io_context;
+    boost::asio::signal_set signals(io_context, SIGINT, SIGTERM);
+
+    network::server server(io_context, context.endpoint, context.bulk_size);
+
+    signals.async_wait([&io_context](const boost::system::error_code& error,
+                                     int /*signal_number*/) {
+      if (!error) {
+        io_context.stop();
+      }
+    });
+
+    io_context.run();
+
+  } catch (std::exception& ex) {
+    std::cerr << ex.what() << std::endl;
+    return 1;
   }
 
-  boost::asio::io_service io_context;
-
-  network::server server(io_context, context.endpoint, context.bulk_size);
-
-  io_context.run();
-
   return 0;
-
-} catch (const std::exception& e) {
-  std::cerr << e.what() << '\n';
-  return 1;
 }

@@ -12,7 +12,7 @@ namespace network {
 
 namespace asio = boost::asio;
 
-class session : std::enable_shared_from_this<session> {
+class session : public std::enable_shared_from_this<session> {
  public:
   session(std::size_t bulk_size, asio::ip::tcp::socket&& socket);
 
