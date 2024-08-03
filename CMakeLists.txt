@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.20)
 
 
-if(DEFINED ENV{TRAVIS_BUILD_NUMBER})
-    project(bulk_server VERSION 0.0.$ENV{TRAVIS_BUILD_NUMBER})
+if(DEFINED ENV{GITHUB_RUN_NUMBER})
+    project(bulk_server VERSION 0.0.$ENV{GITHUB_RUN_NUMBER})
 else()
     project(bulk_server VERSION 0.0.1)
 endif()
@@ -51,33 +51,14 @@ include_directories(utils)
 add_executable(bulk_server main.cpp ${NETWORK} ${UTILS} ${LOGIC})
 target_link_libraries(bulk_server ${Boost_LIBRARIES})
 
-# set_target_properties(bulk_server PROPERTIES
-#     CXX_STANDARD 17
-#     CXX_STANDARD_REQUIRED ON
-#     CXX_EXTENSIONS OFF
-# )
+install(TARGETS bulk_server DESTINATION bin)
 
-# target_include_directories(bulk_server PRIVATE "${CMAKE_BINARY_DIR}" "src/include")
-# target_link_libraries(bulk_server PRIVATE Boost::program_options Boost::system pthread stdc++fs)
+set(CPACK_GENERATOR DEB)
 
-# if(MSVC)
-#     target_compile_options(bulk_server PRIVATE
-#         /W4
-#     )
-# else()
-#     target_compile_options(bulk_server PRIVATE
-#         -Werror -Wall -Wimplicit-fallthrough -pedantic-errors
-#     )
-# endif()
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
 
-# install(TARGETS bulk_server DESTINATION bin)
+set(CPACK_PACKAGE_CONTACT grigormaklaud@gmail.com)
 
-# set(CPACK_GENERATOR DEB)
-
-# set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-# set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-# set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-
-# set(CPACK_PACKAGE_CONTACT example@example.com)
-
-# include(CPack)
+include(CPack)
